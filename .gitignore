@@ -1,0 +1,14 @@
+# Ignore build files
+*.exe
+
+# Ignore personal VS Code settings
+.vscode/settings.json
+
+# OS-specific
+.DS_Store         # macOS
+Thumbs.db         # Windows
+
+# Backup or temp files
+*.log
+*.tmp
+*.bak

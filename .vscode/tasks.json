@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Build Mood Music",
+        "type": "shell",
+        "command": "g++",
+        "args": [
+          "mood_music_realtime.cpp",
+          "rtmidi/RtMidi.cpp",
+          "-o",
+          "moodplayer.exe",
+          "-D__WINDOWS_MM__",
+          "-lwinmm"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": ["$gcc"]
+      }
+    ]
+  }
+  

@@ -24,6 +24,7 @@ A C++ program that creates original melodies based on user mood — **happy**, *
 
 ## 🛠️ How to Build in VS Code
 
+---
 
 ### 🧰 Requirements
 

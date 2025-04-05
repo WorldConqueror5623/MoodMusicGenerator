@@ -36,7 +36,7 @@ A real-time mood-based music generator using MIDI and AI-inspired logic (Markov 
 
 3. **Build using VS Code Task**:  
    Press `Ctrl+Shift+B` and select:  
-   `Build Mood Music`
+   `Build Mood Music (Windows)`
 
 4. **Or build manually using terminal**:  
    ```bash

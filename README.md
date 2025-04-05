@@ -54,7 +54,7 @@ A real-time mood-based music generator using MIDI and AI-inspired logic (Markov 
 
 2. **Clone the repository**:  
    ```bash
-   git clone https://github.com/your-username/ai-music-generator.git  
+   git clone https://github.com/WorldConqueror5623/MoodMusicGenerator  
    cd ai-music-generator
    ```
 

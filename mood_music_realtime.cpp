@@ -5,7 +5,7 @@
 #include <ctime>
 #include <thread>
 #include <chrono>
-#include "RtMidi.h"
+#include "rtmidi/RtMidi.h"  // Include the RtMidi library for MIDI output
 
 using namespace std;
 

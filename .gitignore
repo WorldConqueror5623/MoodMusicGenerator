@@ -1,14 +1,23 @@
-# Ignore build files
+# Ignore build artifacts
 *.exe
+*.out
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+moodplayer
 
-# Ignore personal VS Code settings
+# Ignore VS Code settings and tasks
+.vscode/
 .vscode/settings.json
+.vscode/tasks.json
 
-# OS-specific
-.DS_Store         # macOS
-Thumbs.db         # Windows
+# Ignore Mac system files
+.DS_Store
 
-# Backup or temp files
+# Ignore logs or temp files
 *.log
 *.tmp
+*.temp
 *.bak

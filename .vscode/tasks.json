@@ -1,24 +1,38 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "Build Mood Music",
-        "type": "shell",
-        "command": "g++",
-        "args": [
-          "mood_music_realtime.cpp",
-          "rtmidi/RtMidi.cpp",
-          "-o",
-          "moodplayer.exe",
-          "-D__WINDOWS_MM__",
-          "-lwinmm"
-        ],
-        "group": {
-          "kind": "build",
-          "isDefault": true
-        },
-        "problemMatcher": ["$gcc"]
-      }
-    ]
-  }
-  
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Mood Music (Windows)",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "mood_music_realtime.cpp",
+        "rtmidi/RtMidi.cpp",
+        "-o",
+        "moodplayer.exe",
+        "-D__WINDOWS_MM__",
+        "-lwinmm"
+      ],
+      "group": "build",
+      "problemMatcher": ["$gcc"],
+      "detail": "Build the project for Windows"
+    },
+    {
+      "label": "Build Mood Music (macOS)",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "mood_music_realtime.cpp",
+        "rtmidi/RtMidi.cpp",
+        "-o",
+        "moodplayer",
+        "-framework", "CoreMIDI",
+        "-framework", "CoreAudio",
+        "-framework", "AudioToolbox"
+      ],
+      "group": "build",
+      "problemMatcher": ["$gcc"],
+      "detail": "Build the project for macOS"
+    }
+  ]
+}

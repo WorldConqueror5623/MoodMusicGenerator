@@ -1,45 +1,75 @@
-# 🎵 AI Mood Music Generator
+# 🎵 AI Music Generator
 
-A C++ program that creates original melodies based on user mood — **happy**, **sad**, or **energetic** — using procedural generation and real-time MIDI playback via **RtMidi**.
-
----
-
-## 📌 Features
-
-- 🎹 Generates melodies using a **Markov Chain** and **mood-based scales**
-- 🎶 Real-time audio playback using **RtMidi**
-- 🎼 Different instruments and tempos for each mood
-- 💡 Great for indie game developers, musicians, or AI/ML music enthusiasts
+A real-time mood-based music generator using MIDI and AI-inspired logic (Markov chains, mood-aware dynamics, and instrument selection).
 
 ---
 
-## 🚀 How It Works
+## ✨ Features
 
-1. You enter your mood.
-2. It selects a matching **scale**, **instrument**, and **tempo**.
-3. A melody is generated procedurally.
-4. The program plays it back live via MIDI.
-
----
-
-## 🛠️ How to Build in VS Code
+- Mood-driven melody generation  
+- AI-powered transitions using Markov chains  
+- Real-time MIDI playback  
+- Different instruments, tempo, and scales based on selected mood  
 
 ---
 
-### 🧰 Requirements
+## 🎧 Supported Moods
 
-- [MinGW-w64](https://www.mingw-w64.org/) (or g++ compiler)
-- RtMidi (included in `rtmidi/`)
-- VS Code with C++ extension
+- `joyful` – Bright and upbeat (C Major, Piano)  
+- `melancholy` – Sad and soft (C Minor, Violin)  
+- `powerful` – Energetic and bold (Pentatonic, Synth Lead)  
+- `calm` – Peaceful tones (Major, Bells)  
+- `tense` – Dissonant and suspenseful (Modal scale, Strings)  
+- `dreamy` – Ethereal vibe (Whole Tone, Pad)  
 
 ---
 
-### ▶️ Build Instructions
+## 🏗️ Building and Running
 
-1. Open folder in **VS Code**
-2. Open terminal and type:  
+### 🪟 Building on Windows
 
+1. **Install MinGW**:  
+   Download from [https://www.mingw-w64.org/](https://www.mingw-w64.org/)
+
+2. **Install RtMidi**:  
+   Clone or download the RtMidi library and place it in the project folder.
+
+3. **Build using VS Code Task**:  
+   Press `Ctrl+Shift+B` and select:  
+   `Build Mood Music`
+
+4. **Or build manually using terminal**:  
    ```bash
    g++ mood_music_realtime.cpp rtmidi/RtMidi.cpp -o moodplayer.exe -D__WINDOWS_MM__ -lwinmm
+   ```
 
-OR press Ctrl + Shift + B (uses .vscode/tasks.json)
+---
+
+### 🍎 Building on macOS
+
+1. **Install dependencies**:  
+   ```bash
+   brew install pkg-config portmidi
+   ```
+
+2. **Clone the repository**:  
+   ```bash
+   git clone https://github.com/your-username/ai-music-generator.git  
+   cd ai-music-generator
+   ```
+
+3. **Build using VS Code Task**:  
+   Press `Cmd+Shift+B` and select:  
+   `Build Mood Music (macOS)`
+
+4. **Or compile manually via terminal**:  
+   ```bash
+   g++ mood_music_realtime.cpp rtmidi/RtMidi.cpp -o moodplayer -framework CoreMIDI -framework CoreAudio -framework AudioToolbox
+   ```
+
+5. **Run the program**:  
+   ```bash
+   ./moodplayer
+   ```
+
+---

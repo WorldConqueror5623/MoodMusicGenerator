@@ -42,6 +42,11 @@ A real-time mood-based music generator using MIDI and AI-inspired logic (Markov 
    ```bash
    g++ mood_music_realtime.cpp rtmidi/RtMidi.cpp -o moodplayer.exe -D__WINDOWS_MM__ -lwinmm
    ```
+   
+5. **Run the program**:  
+   ```bash
+   ./moodplayer.exe
+   ```
 
 ---
 

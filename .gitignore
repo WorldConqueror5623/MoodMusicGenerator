@@ -21,3 +21,4 @@ moodplayer
 *.tmp
 *.temp
 *.bak
+output_melody.txt

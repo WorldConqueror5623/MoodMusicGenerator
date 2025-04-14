@@ -11,7 +11,10 @@
         "-o",
         "moodplayer.exe",
         "-D__WINDOWS_MM__",
-        "-lwinmm"
+        "-lwinmm",
+        "-I\"music-generator/midifile/include\"",  // Include path for midifile headers
+        "-L\"midifile/lib\"",      // Library path for midifile
+        "-lmidifile"                    // Link the midifile library
       ],
       "group": "build",
       "problemMatcher": ["$gcc"],

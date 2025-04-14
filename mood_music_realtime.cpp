@@ -7,17 +7,15 @@
 #include <chrono>
 #include <fstream>
 #include "rtmidi/RtMidi.h"
+#include "midifile/include/MidiFile.h"
 
 using namespace std;
+using namespace smf; // for midifile
 
 // 🎵 Markov Chain for Melody Generation
 map<int, vector<int>> mood_transitions = {
-    {60, {62, 64, 67}},
-    {62, {64, 60, 65}},
-    {64, {65, 67, 60}},
-    {65, {67, 69, 60}},
-    {67, {69, 71, 60}},
-    {69, {71, 72, 60}},
+    {60, {62, 64, 67}}, {62, {64, 60, 65}}, {64, {65, 67, 60}},
+    {65, {67, 69, 60}}, {67, {69, 71, 60}}, {69, {71, 72, 60}},
     {71, {72, 74, 60}}
 };
 
@@ -36,25 +34,17 @@ vector<int> rhythm_pattern = {400, 200, 600, 300, 500};
 
 // 🎚️ Tempo Mapping
 map<string, int> mood_tempo = {
-    {"joyful", 120},
-    {"melancholy", 60},
-    {"powerful", 150},
-    {"calm", 80},
-    {"tense", 100},
-    {"dreamy", 90}
+    {"joyful", 120}, {"melancholy", 60}, {"powerful", 150},
+    {"calm", 80}, {"tense", 100}, {"dreamy", 90}
 };
 
 // 🎹 Instrument Mapping
 map<string, int> mood_instruments = {
-    {"joyful", 0},
-    {"melancholy", 40},
-    {"powerful", 81},
-    {"calm", 14},
-    {"tense", 48},
-    {"dreamy", 89}
+    {"joyful", 0}, {"melancholy", 40}, {"powerful", 81},
+    {"calm", 14}, {"tense", 48}, {"dreamy", 89}
 };
 
-// 🎶 Function to Generate Melody
+// 🎶 Generate Melody
 vector<int> generateMelody(string mood, int length) {
     vector<int> melody;
     vector<int> scale = mood_scales[mood];
@@ -70,7 +60,7 @@ vector<int> generateMelody(string mood, int length) {
     return melody;
 }
 
-// 💾 Export Melody to MIDI-like text file (basic simulation)
+// 💾 Export as Text
 void exportToMidiText(const vector<int>& melody, const string& filename) {
     ofstream out(filename);
     for (int note : melody) {
@@ -78,6 +68,40 @@ void exportToMidiText(const vector<int>& melody, const string& filename) {
     }
     out.close();
     cout << "Melody exported to " << filename << endl;
+}
+
+// 🎼 Export to MIDI using Midifile
+void saveAsMIDI(const vector<int>& melody, const string& filename, string mood) {
+    MidiFile midi;
+    midi.addTrack(1);
+    int tpq = 480;
+    midi.setTicksPerQuarterNote(tpq);
+
+    int track = 0;
+    int instrument = mood_instruments[mood];
+    int tempo = mood_tempo[mood];
+    int tick = 0;
+
+    // Set tempo
+    midi.addTempo(track, tick, tempo);
+
+    // Set instrument
+    midi.addTimbre(track, tick, 0, instrument);
+
+    // Add notes
+    for (size_t i = 0; i < melody.size(); i++) {
+        int note = melody[i];
+        int duration_ms = rhythm_pattern[i % rhythm_pattern.size()];
+        int duration_ticks = (duration_ms * tpq) / (60000 / tempo);
+
+        midi.addNoteOn(track, tick, 0, note, 100);
+        midi.addNoteOff(track, tick + duration_ticks, 0, note);
+        tick += duration_ticks;
+    }
+
+    midi.sortTracks();
+    midi.write(filename);
+    cout << "MIDI file saved as " << filename << endl;
 }
 
 // 🎛️ Play Melody using RtMidi
@@ -99,18 +123,12 @@ void playMelody(vector<int> melody, string mood) {
         int note = melody[i];
         int velocity = 100;
 
-        message.clear();
-        message.push_back(0x90);
-        message.push_back(note);
-        message.push_back(velocity);
+        message = {0x90, static_cast<unsigned char>(note), static_cast<unsigned char>(velocity)};
         midiOut.sendMessage(&message);
 
         this_thread::sleep_for(chrono::milliseconds(rhythm_pattern[i % rhythm_pattern.size()]));
 
-        message.clear();
-        message.push_back(0x80);
-        message.push_back(note);
-        message.push_back(0);
+        message = {0x80, static_cast<unsigned char>(note), 0};
         midiOut.sendMessage(&message);
     }
     midiOut.closePort();
@@ -131,6 +149,7 @@ int main() {
     vector<int> melody = generateMelody(mood, 16);
     playMelody(melody, mood);
     exportToMidiText(melody, "output_melody.txt");
+    saveAsMIDI(melody, "output.mid", mood);
 
     return 0;
 }

@@ -3,7 +3,6 @@
 *.out
 *.o
 *.obj
-*.a
 *.so
 *.dylib
 moodplayer
